@@ -13,4 +13,11 @@ if __name__ == '__main__':
     print(s.rindex('a'))
 
     print('----------------------------')
+    s1 = 'ab\\\\c\\n\n\ndef\tghia\tjklamłóąóśćąćą'
+    print(s1)
 
+
+    print("I can't")
+    print("Hello \"Pawel\"")
+    print('Hello "Pawel"')
+    print('I can\'t')
