@@ -6,12 +6,15 @@ for i in range(3, 7):
     print(i)
 
 print('-----------')
+i = 100
+print(i)
 for i in range(8):
     if i==3:
         continue
     if i==6:
         break
     print(i)
+print('i={}'.format(i))
 
 
 print('-----------')
