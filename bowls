@@ -9,3 +9,5 @@ x x x x x x
      x
 
 how many x's do we need o
+
+sum(n) = sum(n-1)+n
