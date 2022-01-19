@@ -65,8 +65,11 @@ class Bank:
         #TODO
         from_acc = self.account_list[from_acc_id-1]
         to_acc = self.account_list[to_acc_id-1]
+        #try:
         from_acc.charge(amount)
         to_acc.deposit(amount)
+        #except NotEnoughMoneyError as ne:
+        #    print('Charge unsucceful: ' + str(ne))
 
     def __repr__(self):
         return 'Bank[{},{}]'.format(self.customer_list, self.account_list)
@@ -88,11 +91,21 @@ a = b.create_account(c)
 c2 = b.create_customer('John', 'Brown')
 b.create_account(c2, is_savings=True)
 
-a.deposit(200)
-#a.charge(300)
-print(b)
-b.transfer(1, 2, 250)
-print(b)
+
+try:
+    a.deposit(200)
+    #a.charge(300)
+    print(b)
+    b.transfer(1, 2, 150)
+    b.trn(333)
+    print(b)
+# except (NotEnoughMoneyError, NegativeAmountError) as ne:
+#     print('Charge unsucceful: ' + str(ne))
+except BankError as ne:
+    print('Charge unsucceful: ' + str(ne))
+# Not good to use it
+# except Exception as e:
+#     print(str(e))
 
 
 
