@@ -22,9 +22,17 @@ class Account:
 
     def deposit(self, amount):
         #TODO
+        self._balance = self._balance + amount
 
     def charge(self, amount):
         #TODO
+        if amount > self._balance:
+            print('Not enough money')
+            raise NotEnoughMoneyError('Not enough, amount requested: {} balance: {}'.format(amount, self._balance))
+        if amount < 0:
+            print('negative amount')
+            raise NegativeAmountError('Negative amount provided')
+        self._balance = self._balance - amount
 
     def __repr__(self):
         return '{}[{},{},{}]'.format(self.__class__.__name__, self.id, self.customer.lastname, self._balance)
@@ -55,15 +63,41 @@ class Bank:
 
     def transfer(self, from_acc_id, to_acc_id, amount):
         #TODO
+        from_acc = self.account_list[from_acc_id-1]
+        to_acc = self.account_list[to_acc_id-1]
+        from_acc.charge(amount)
+        to_acc.deposit(amount)
 
     def __repr__(self):
         return 'Bank[{},{}]'.format(self.customer_list, self.account_list)
 
 
+class BankError(Exception):
+    pass
+
+class NotEnoughMoneyError(BankError):
+    pass
+
+class NegativeAmountError(BankError):
+    pass
+
+
 b = Bank()
 c = b.create_customer('Anne', 'Smith')
-b.create_account(c)
+a = b.create_account(c)
 c2 = b.create_customer('John', 'Brown')
 b.create_account(c2, is_savings=True)
 
+a.deposit(200)
+#a.charge(300)
 print(b)
+b.transfer(1, 2, 250)
+print(b)
+
+
+
+
+
+
+#b.transfer(1, 2, 100)
+#print(b)
